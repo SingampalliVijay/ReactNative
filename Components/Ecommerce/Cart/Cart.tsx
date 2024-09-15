@@ -1,10 +1,19 @@
 import { SafeAreaView, StyleSheet, Text, View, FlatList, Image } from 'react-native';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_PRODUCT_DATA } from '../../redux/CounterAction';
 
 const Cart = () => {
-    const cart = useSelector((state: any) => state.cart);
+    const cart = useSelector((state: any) => state.cart.cartList);
+    const [refreshing, setRefreshing] = useState(false);
+    const dispatch = useDispatch();
 
+    console.log('Cart Data --> ', cart)
+    const handleRefresh = () => {
+        setRefreshing(true);
+        dispatch({ type: SET_PRODUCT_DATA, data: cart })
+        setRefreshing(false);
+    };
     return (
         <SafeAreaView>
             <Text style={styles.cart}>Cart</Text>
@@ -16,13 +25,15 @@ const Cart = () => {
                             <Image source={{ uri: item.images[0] }} style={styles.img} />
                             <View style={styles.list}>
                                 <Text style={styles.title}>{item.title}</Text>
-                                <Text style={{ margin: 10, paddingTop: 10 }}>Qty : {item.quantity}</Text>
+                                <Text style={{ margin: 10 }}>Qty : {item.quantity}</Text>
                                 <Text style={{ fontSize: 25, marginLeft: 10, color: 'black' }}>${item.price}</Text>
                             </View>
                         </View>
                     )
                 }
-                } />
+                }
+                refreshing={refreshing} onRefresh={handleRefresh}
+            />
         </SafeAreaView>
     );
 };
@@ -30,18 +41,18 @@ const Cart = () => {
 export default Cart;
 
 const styles = StyleSheet.create({
-    cart:{
-        justifyContent:'center',
-        alignItems:'center',
-        fontSize:30,
-        margin:10,
-        color:'#16325B'
+    cart: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 30,
+        margin: 10,
+        color: '#16325B'
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginLeft: 10,
-        color:'#125B9A'
+        color: '#125B9A'
     },
     cartItem: {
         padding: 10,

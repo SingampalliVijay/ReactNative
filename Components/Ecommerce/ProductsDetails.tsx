@@ -1,26 +1,45 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import { SET_PRODUCT_DATA } from '../redux/CounterAction';
+import { useSelector } from 'react-redux';
 
 const ProductDetails = ({ route }: any) => {
+    const cart = useSelector((state: any) => state.cart.cartList || []);
     const { product } = route.params;
-    // const cart = useSelector((state: any) => state.cart)
     const dispatch = useDispatch();
 
     const handleProducts = (product: any) => {
-      console.log(product)
-        dispatch({ type: SET_PRODUCT_DATA, data: product });
+        console.log("This is Cart --- ", cart);
+        const item = cart.find((item: { id: any }) => item.id === product.id);
+        if (item) {
+            const updatedCart = cart.map((item: { id: any; quantity: number }) => {
+                if (item.id === product.id) {
+                    return { ...item, quantity: item.quantity + 1 };
+                }
+                return item;
+            });
+            dispatch({ type: SET_PRODUCT_DATA, data: updatedCart });
+        } else {
+            const newProduct = { ...product, quantity: 1 };
+            const updatedCart = [...cart, newProduct];
+            dispatch({ type: SET_PRODUCT_DATA, data: updatedCart });
+        }
+        showAlert();
     };
-    
+
+    function showAlert() {
+        Alert.alert('Cart', 'Product Added To Cart')
+    }
+
     return (
         <SafeAreaView>
             <View style={styles.detailsContainer}>
                 <Image source={{ uri: product.images[0] }} style={styles.detailImage} />
                 <Text style={styles.detailTitle}>{product.title}</Text>
                 <Text style={styles.detailPrice}>Price : ${product.price}</Text>
-                <Text style={styles.detailText}>Description : ${product.description}</Text>
+                <Text style={styles.detailText}>Description : {product.description}</Text>
                 <Text style={styles.detailText}>Created: {product.creationAt}</Text>
                 <View style={styles.cartBtn}>
                     <TouchableOpacity onPress={() => handleProducts(product)}>

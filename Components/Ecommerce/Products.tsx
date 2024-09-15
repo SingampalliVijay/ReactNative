@@ -1,6 +1,7 @@
 import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import productsData from '../../assets/products.json';
 
 const Products = ({ navigation }: any) => {
   const [products, setProducts] = useState<any[]>([])
@@ -10,9 +11,14 @@ const Products = ({ navigation }: any) => {
   const url = 'https://api.escuelajs.co/api/v1/products';
   const fetchData = async () => {
     const users_data = await fetch(url);
-    let data = await users_data.json();
-    setProducts(data);
-    setFilteredData(data);
+    // let data = await users_data.json();
+    // // console.log('___json', data);
+    // setProducts(data)
+    // setFilteredData(data)
+
+    // Local Data
+    setProducts(productsData);
+    setFilteredData(productsData);
   };
   useEffect(() => {
     setTimeout(() => {

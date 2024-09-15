@@ -24,7 +24,7 @@ export function getUserList() {
 
 export function getProductList() {
   return {
-    type: PRODUCT_LIST
+    type: SET_PRODUCT_DATA
   }
 }
 

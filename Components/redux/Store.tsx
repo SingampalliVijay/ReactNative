@@ -4,6 +4,7 @@ import createSagaMiddleWare from 'redux-saga';
 import SagaData from './Saga';
 import { reducer } from './reducer';
 import {CartReducer} from '../Ecommerce/Cart/CartReducer';
+import CartSaga from '../Ecommerce/Cart/CartSaga';
 
 const sagaMiddleWare =createSagaMiddleWare();
 const store =configureStore({
@@ -19,6 +20,6 @@ const store =configureStore({
     }).concat(sagaMiddleWare)
 });
 sagaMiddleWare.run(SagaData);
-
+sagaMiddleWare.run(CartSaga)
 export default store;
 

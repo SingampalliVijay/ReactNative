@@ -52,6 +52,12 @@ const Users = () => {
     hideTimePicker();
   };
 
+  // const handleProfile = () =>{
+  //  Alert.alert('Profile', 'Profile Updated')
+  //  setTime('')
+  //  setDate('')
+  // }
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Profile</Text>
@@ -111,7 +117,7 @@ const Users = () => {
           />
           <TextInput
             style={[styles.dob, { flex: 1, color: 'black' }]}
-            placeholder='Mon Sep 09 2024'
+            placeholder='00:00:00'
             editable={false}
             value={time}
           />
@@ -127,7 +133,8 @@ const Users = () => {
             containerStyle={styles.checkbox}
           />
         </View>
-        <TouchableOpacity style={styles.profile} onPress={() => Alert.alert('Profile', 'Profile Updated')}>
+        <TouchableOpacity style={styles.profile} onPress={() => Alert.alert('Profile', 'Profile Updated')
+        }>
           <Text style={{ fontSize: 20, color: 'white' }}>Update Profile</Text>
         </TouchableOpacity>
       </View>
