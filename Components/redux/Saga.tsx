@@ -16,7 +16,6 @@ function* userList(): any {
     }
   })
   yield put({ type: SET_USER_DATA, data })
-  // console.warn(data);
 }
 
 function* SagaData() {

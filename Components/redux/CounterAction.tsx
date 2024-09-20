@@ -1,4 +1,3 @@
-// import { PRODUCT_LIST, USER_LIST } from "./constants";
 
 export const Increment = () => {
   return {
@@ -32,4 +31,4 @@ export const USER_LIST ="user_list";
 export const SET_USER_DATA="set_user_data";
 export const SET_PRODUCT_DATA="set_product_data"
 export const PRODUCT_LIST="product_list";
-export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const REMOVE_PRODUCT_DATA ="remove_product";

@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -28,10 +28,12 @@ const Categories = () => {
     }
     setFilteredData(filtered);
   };
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     applyFilter();
   };
+
   const handleRefresh = () => {
     setRefreshing(true)
     setSearchQuery('')
@@ -61,7 +63,7 @@ const Categories = () => {
               <View style={styles.list}>
                 <Text style={styles.title}>{item.name}</Text>
                 <Text style={{ margin: 10 }}>{item.creationAt}</Text>
-             </View>
+              </View>
             </View>
           )
         }}
